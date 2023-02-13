@@ -287,7 +287,7 @@ class Ui_MainWindow(object):
             self.is_res = False
         else:
             if value in ['/', '*', '-', '+'] and self.label.text()[-1] in ['/', '*', '-', '+']:
-                pass
+                self.label.setText(self.label.text()[0:-1] + value)
             else:
                 self.label.setText(self.label.text() + value)
 
@@ -296,8 +296,10 @@ class Ui_MainWindow(object):
             res = eval(self.label.text())
             print(res)
             self.label.setText(str(res))
-        except (ZeroDivisionError, SyntaxError):
+        except ZeroDivisionError:
             self.label.setText('Ошибка')
+        except SyntaxError:
+            return 0
 
         self.is_res = True
 
